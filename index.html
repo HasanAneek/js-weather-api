@@ -48,7 +48,7 @@
         
 
         button.addEventListener('click',function(name){
-            fetch('http://api.openweathermap.org/data/2.5/weather?q='+ input.value +'&appid=011ac2ac78d8f3fa9dd5b8652cda3065')
+            fetch('https://api.openweathermap.org/data/2.5/weather?q='+ input.value +'&appid=011ac2ac78d8f3fa9dd5b8652cda3065')
             .then(res => res.json())
             .then(data => {
                 const temperature = data['main']['temp'];
