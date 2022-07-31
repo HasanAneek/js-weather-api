@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Weather API</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input id="input" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button id="button" type="button" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        
+        <div id="card" class="weather-status text-white text-center">
+            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="name"></h1>
+            <h3><span id="temps"></span>&deg;</h3>
+            <h1 id="cloud">Clouds</h1>
+            <p id="country"></p>
+        </div>
+    </div>
+
+    <script>
+        let input = document.getElementById('input');
+        let main = document.getElementById('name');
+        let temp = document.getElementById('temps');
+        let cloud = document.getElementById('cloud');
+        let country = document.getElementById('country');
+        let button = document.getElementById('button');
+        
+
+        button.addEventListener('click',function(name){
+            fetch('http://api.openweathermap.org/data/2.5/weather?q='+ input.value +'&appid=011ac2ac78d8f3fa9dd5b8652cda3065')
+            .then(res => res.json())
+            .then(data => {
+                const temperature = data['main']['temp'];
+                const nameValue = data['name'];
+                const cloudValue = data.weather[0]['main'];
+                const countryName = data['sys']['country'];
+
+                main.innerText = nameValue;
+                temp.innerText = temperature;
+                cloud.innerText = cloudValue;
+                country.innerText = countryName;
+
+                input.value = "";
+            })
+            .catch(err => alert('Wrong city name!'));
+        })
+        
+    </script>
+
+</body>
+
+</html>
